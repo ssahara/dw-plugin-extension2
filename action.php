@@ -8,7 +8,7 @@
 // must be run within Dokuwiki
 if(!defined('DOKU_INC')) die();
 
-class action_plugin_extension extends DokuWiki_Action_Plugin {
+class action_plugin_extension2 extends DokuWiki_Action_Plugin {
 
     /**
      * Registers a callback function for a given event
@@ -32,7 +32,7 @@ class action_plugin_extension extends DokuWiki_Action_Plugin {
         global $USERINFO;
         global $INPUT;
 
-        if($event->data != 'plugin_extension') return;
+        if($event->data != 'plugin_extension2') return;
         $event->preventDefault();
         $event->stopPropagation();
 
@@ -50,7 +50,7 @@ class action_plugin_extension extends DokuWiki_Action_Plugin {
         }
 
         /** @var helper_plugin_extension_extension $extension */
-        $extension = plugin_load('helper', 'extension_extension');
+        $extension = plugin_load('helper', 'extension2_extension');
         $extension->setExtension($ext);
 
         $act = $INPUT->str('act');
@@ -75,7 +75,7 @@ class action_plugin_extension extends DokuWiki_Action_Plugin {
             case 'info':
             default:
                 /** @var helper_plugin_extension_list $list */
-                $list = plugin_load('helper', 'extension_list');
+                $list = plugin_load('helper', 'extension2_list');
                 header('Content-Type: text/html; charset=utf-8');
                 echo $list->make_info($extension);
         }

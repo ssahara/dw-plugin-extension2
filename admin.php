@@ -12,7 +12,7 @@ if(!defined('DOKU_INC')) die();
 /**
  * Admin part of the extension manager
  */
-class admin_plugin_extension extends DokuWiki_Admin_Plugin {
+class admin_plugin_extension2 extends DokuWiki_Admin_Plugin {
     protected $infoFor = null;
     /** @var  helper_plugin_extension_gui */
     protected $gui;
@@ -23,7 +23,7 @@ class admin_plugin_extension extends DokuWiki_Admin_Plugin {
      * loads additional helpers
      */
     public function __construct() {
-        $this->gui = plugin_load('helper', 'extension_gui');
+        $this->gui = plugin_load('helper', 'extension2_gui');
     }
 
     /**
@@ -47,7 +47,7 @@ class admin_plugin_extension extends DokuWiki_Admin_Plugin {
         global $INPUT;
         // initialize the remote repository
         /* @var helper_plugin_extension_repository $repository */
-        $repository = $this->loadHelper('extension_repository');
+        $repository = $this->loadHelper('extension2_repository');
 
         if(!$repository->hasAccess()) {
             $url = $this->gui->tabURL('', array('purge' => 1));
@@ -55,7 +55,7 @@ class admin_plugin_extension extends DokuWiki_Admin_Plugin {
         }
 
         /* @var helper_plugin_extension_extension $extension */
-        $extension = $this->loadHelper('extension_extension');
+        $extension = $this->loadHelper('extension2_extension');
 
         try {
             if($INPUT->post->has('fn') && checkSecurityToken()) {

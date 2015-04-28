@@ -11,9 +11,9 @@ if(!defined('DOKU_INC')) die();
 if(!defined('DOKU_TPLLIB')) define('DOKU_TPLLIB', DOKU_INC.'lib/tpl/');
 
 /**
- * Class helper_plugin_extension_extension represents a single extension (plugin or template)
+ * Class helper_plugin_extension2_extension represents a single extension (plugin or template)
  */
-class helper_plugin_extension_extension extends DokuWiki_Plugin {
+class helper_plugin_extension2_extension extends DokuWiki_Plugin {
     private $id;
     private $base;
     private $is_template = false;
@@ -71,7 +71,7 @@ class helper_plugin_extension_extension extends DokuWiki_Plugin {
         }
 
         if ($this->repository == null) {
-            $this->repository = $this->loadHelper('extension_repository');
+            $this->repository = $this->loadHelper('extension2_repository');
         }
 
         $this->remoteInfo = $this->repository->getData($this->getID());

@@ -15,9 +15,9 @@ if (!defined('EXTENSION_REPOSITORY_API_ENDPOINT'))
 if(!defined('DOKU_INC')) die();
 
 /**
- * Class helper_plugin_extension_repository provides access to the extension repository on dokuwiki.org
+ * Class helper_plugin_extension2_repository provides access to the extension repository on dokuwiki.org
  */
-class helper_plugin_extension_repository extends DokuWiki_Plugin {
+class helper_plugin_extension2_repository extends DokuWiki_Plugin {
     private $loaded_extensions = array();
     private $has_access = null;
     /**

@@ -10,9 +10,9 @@
 if(!defined('DOKU_INC')) die();
 
 /**
- * Class helper_plugin_extension_list takes care of the overall GUI
+ * Class helper_plugin_extension2_list takes care of the overall GUI
  */
-class helper_plugin_extension_gui extends DokuWiki_Plugin {
+class helper_plugin_extension2_gui extends DokuWiki_Plugin {
 
     protected $tabs = array('plugins', 'templates', 'search', 'install');
 
@@ -43,9 +43,9 @@ class helper_plugin_extension_gui extends DokuWiki_Plugin {
         $pluginlist = $plugin_controller->getList('', true);
         sort($pluginlist);
         /* @var helper_plugin_extension_extension $extension */
-        $extension = $this->loadHelper('extension_extension');
+        $extension = $this->loadHelper('extension2_extension');
         /* @var helper_plugin_extension_list $list */
-        $list = $this->loadHelper('extension_list');
+        $list = $this->loadHelper('extension2_list');
         $list->start_form();
         foreach($pluginlist as $name) {
             $extension->setExtension($name);
@@ -69,9 +69,9 @@ class helper_plugin_extension_gui extends DokuWiki_Plugin {
         sort($tpllist);
 
         /* @var helper_plugin_extension_extension $extension */
-        $extension = $this->loadHelper('extension_extension');
+        $extension = $this->loadHelper('extension2_extension');
         /* @var helper_plugin_extension_list $list */
-        $list = $this->loadHelper('extension_list');
+        $list = $this->loadHelper('extension2_list');
         $list->start_form();
         foreach($tpllist as $name) {
             $extension->setExtension("template:$name");
@@ -98,13 +98,13 @@ class helper_plugin_extension_gui extends DokuWiki_Plugin {
         if(!$INPUT->bool('q')) return;
 
         /* @var helper_plugin_extension_repository $repository FIXME should we use some gloabl instance? */
-        $repository = $this->loadHelper('extension_repository');
+        $repository = $this->loadHelper('extension2_repository');
         $result     = $repository->search($INPUT->str('q'));
 
         /* @var helper_plugin_extension_extension $extension */
-        $extension = $this->loadHelper('extension_extension');
+        $extension = $this->loadHelper('extension2_extension');
         /* @var helper_plugin_extension_list $list */
-        $list = $this->loadHelper('extension_list');
+        $list = $this->loadHelper('extension2_list');
         $list->start_form();
         if($result){
             foreach($result as $name) {
@@ -182,7 +182,7 @@ class helper_plugin_extension_gui extends DokuWiki_Plugin {
         if(!$tab) $tab = $this->currentTab();
         $defaults = array(
             'do'   => 'admin',
-            'page' => 'extension',
+            'page' => 'extension2',
             'tab'  => $tab,
         );
         if($tab == 'search') $defaults['q'] = $INPUT->str('q');
