@@ -365,31 +365,18 @@ class helper_plugin_extension2_list extends DokuWiki_Plugin {
      * @return string The HTML code
      */
     function make_info(helper_plugin_extension2_extension $extension) {
+        global $conf;
         $default = $this->getLang('unknown');
         $return = '<dl class="details">';
+// SAHARA
+        //$return .= '<dt>'.$this->getLang('status').'</dt>';
+        //$return .= '<dt>'.($extension->isTemplate())? $this->getLang('status_template') : $this->getLang('status_plugin');
+        $return .= '<dt>';
+        $return .= ($extension->isTemplate())? $this->getLang('status_template') : $this->getLang('status_plugin');
+        $return .= ' '.$this->getLang('status').'</dt>';
+        $return .= '<dd>'.$this->make_status($extension).' (id='.hsc($extension->getID()).')</dd>';
 
-        $return .= '<dt>'.$this->getLang('status').'</dt>';
-        $return .= '<dd>'.$this->make_status($extension).'</dd>';
-
-        if ($extension->getDonationURL()) {
-            $return .= '<dt>'.$this->getLang('donate').'</dt>';
-            $return .= '<dd>';
-            $return .= '<a href="'.$extension->getDonationURL().'" class="donate">'.$this->getLang('donate_action').'</a>';
-            $return .= '</dd>';
-        }
-
-        if (!$extension->isBundled()) {
-            $return .= '<dt>'.$this->getLang('downloadurl').'</dt>';
-            $return .= '<dd><bdi>';
-            $return .= ($extension->getDownloadURL() ? $this->shortlink($extension->getDownloadURL()) : $default);
-            $return .= '</bdi></dd>';
-
-            $return .= '<dt>'.$this->getLang('repository').'</dt>';
-            $return .= '<dd><bdi>';
-            $return .= ($extension->getSourcerepoURL() ? $this->shortlink($extension->getSourcerepoURL()) : $default);
-            $return .= '</bdi></dd>';
-        }
-
+        //SAHARA: Local info
         if ($extension->isInstalled()) {
             if ($extension->getInstalledVersion()) {
                 $return .= '<dt>'.$this->getLang('installed_version').'</dt>';
@@ -400,17 +387,50 @@ class helper_plugin_extension2_list extends DokuWiki_Plugin {
             if (!$extension->isBundled()) {
                 $return .= '<dt>'.$this->getLang('install_date').'</dt>';
                 $return .= '<dd>';
+                //SAHARA
+                if ($extension->getUpdateDate() ) {
+                    $return.= hsc(date('Y-m-d H:i:s (P)  ', strtotime($extension->getUpdateDate()) ));
+                } else{ 
+                    $return.= $this->getLang('unknown');
+                } 
                 $return .= ($extension->getUpdateDate() ? hsc($extension->getUpdateDate()) : $this->getLang('unknown'));
                 $return .= '</dd>';
+
+                $return .= '<dt>'.$this->getLang('downloadurl').'</dt>';
+                $return .= '<dd><bdi>';
+                $return .= ($extension->getLastDownloadURL() ? $this->shortlink($extension->getLastDownloadURL()) : $default);
+                $return .= '</bdi></dd>';
             }
         }
-        if (!$extension->isInstalled() || $extension->updateAvailable()) {
+
+        //SAHARA: Non-Bundled only
+//        if (!$extension->isBundled()) {
+            //$return .= '<dt>remote info</dt>'.'<dd>----------</dd>';
+            $return .= '<dt style="background-color:#eee; color:#600;">❢ repository</dt><dd style="background-color:#eee; color:#600; font-weight:bold;">information</dd>';
+            $return .= '<dt>'.$this->getLang('repository').'</dt>';
+            $return .= '<dd><bdi>';
+            $return .= ($extension->getSourcerepoURL() ? $this->shortlink($extension->getSourcerepoURL()) : $default);
+            $return .= '</bdi></dd>';
             $return .= '<dt>'.$this->getLang('available_version').'</dt>';
             $return .= '<dd>';
-            $return .= ($extension->getLastUpdate() ? hsc($extension->getLastUpdate()) : $this->getLang('unknown'));
+            $return .= hsc($extension->getLastUpdate());
             $return .= '</dd>';
-        }
 
+            if ($extension->getDonationURL()) {
+                $return .= '<dt>'.$this->getLang('donate').'</dt>';
+                $return .= '<dd>';
+                $return .= '<a href="'.$extension->getDonationURL().'" class="donate">'.$this->getLang('donate_action').'</a>';
+                $return .= '</dd>';
+            }
+
+            $return .= '<dt>'.$this->getLang('downloadurl').'</dt>';
+            $return .= '<dd><bdi>';
+            $return .= ($extension->getDownloadURL() ? $this->shortlink($extension->getDownloadURL()) : $default);
+            $return .= '</bdi></dd>';
+
+//        }
+
+        //SAHARA: Non-Bundled and Bundled extension
         $return .= '<dt>'.$this->getLang('provides').'</dt>';
         $return .= '<dd><bdi>';
         $return .= ($extension->getTypes() ? hsc(implode(', ', $extension->getTypes())) : $default);
