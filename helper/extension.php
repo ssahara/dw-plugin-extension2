@@ -79,6 +79,20 @@ class helper_plugin_extension2_extension extends DokuWiki_Plugin {
         return ($this->localInfo || $this->remoteInfo);
     }
 
+//SAHARA
+    /**
+     * If remote infomation of the extension is available
+     *
+     * @return bool
+     */
+    public function isRemoteInfoAvailable() {
+        if (empty($this->remoteInfo)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     /**
      * If the extension is installed locally
      *
