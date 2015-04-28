@@ -70,9 +70,11 @@ class helper_plugin_extension2_repository extends DokuWiki_Plugin {
                 $httpclient->timeout = 5;
                 $data = $httpclient->get(EXTENSION_REPOSITORY_API.'?cmd=ping');
                 if ($data !== false) {
+                    msg('cmd=ping '.EXTENSION_REPOSITORY_API.' --> success', 0);// SAHARA added
                     $this->has_access = true;
                     $cache->storeCache(1);
                 } else {
+                    msg('cmd=ping '.EXTENSION_REPOSITORY_API.' --> failed', -1);// SAHARA added
                     $this->has_access = false;
                     $cache->storeCache(0);
                 }
