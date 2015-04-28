@@ -324,6 +324,15 @@ class helper_plugin_extension2_list extends DokuWiki_Plugin {
                 sprintf($this->getLang('url_change'), '<bdi>'.hsc($extension->getDownloadURL()).'</bdi>', '<bdi>'.hsc($extension->getLastDownloadURL()).'</bdi>').
                 '</div>';
         }
+
+//SAHARA
+        //if(!$extension->isBundled() && !$extension->getSourcerepoURL()) {
+        if(!$extension->isBundled() && !$extension->isRemoteInfoAvailable()) {
+            $return .= '<div class="msg notify">'.
+                 'RemoteInfo does NOT available!!'.$extension->getSourcerepoURL().
+                 '</div>';
+        }
+
         return $return.DOKU_LF;
     }
 
@@ -469,6 +478,8 @@ class helper_plugin_extension2_list extends DokuWiki_Plugin {
                 if (!$extension->isProtected()) {
                     $return .= $this->make_action('uninstall', $extension);
                 }
+// SAHARA changed! start
+/*
                 if ($extension->getDownloadURL()) {
                     if ($extension->updateAvailable()) {
                         $return .= $this->make_action('update', $extension);
@@ -476,6 +487,15 @@ class helper_plugin_extension2_list extends DokuWiki_Plugin {
                         $return .= $this->make_action('reinstall', $extension);
                     }
                 }
+*/
+// SAHARA changed! here  */
+                if ($extension->getDownloadURL() && $extension->updateAvailable()) {
+                    $return .= $this->make_action('update', $extension);
+                }
+                if ($extension->getLastDownloadURL()) {
+                    $return .= $this->make_action('reinstall', $extension);
+                }
+// SAHARA changed! end
             }else{
                 $errors .= '<p class="permerror">'.$this->getLang($canmod).'</p>';
             }
@@ -522,8 +542,11 @@ class helper_plugin_extension2_list extends DokuWiki_Plugin {
 
         switch ($action) {
             case 'install':
-            case 'reinstall':
+            case 'update':
                 $title = 'title="'.hsc($extension->getDownloadURL()).'"';
+                break;
+            case 'reinstall':
+                $title = 'title="'.hsc($extension->getLastDownloadURL()).'"';
                 break;
         }
 
@@ -555,7 +578,7 @@ class helper_plugin_extension2_list extends DokuWiki_Plugin {
         }
         if(!$extension->canModify()) $status[] = $this->getLang('status_unmodifiable');
         if($extension->isBundled()) $status[] = $this->getLang('status_bundled');
-        $status[] = $extension->isTemplate() ? $this->getLang('status_template') : $this->getLang('status_plugin');
+        //SAHARA $status[] = $extension->isTemplate() ? $this->getLang('status_template') : $this->getLang('status_plugin');
         return join(', ', $status);
     }
 
