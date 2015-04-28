@@ -6,7 +6,7 @@ jQuery(function(){
      * Confirm uninstalling
      */
     $extmgr.find('input.uninstall').click(function(e){
-        if(!window.confirm(LANG.plugins.extension.reallydel)){
+        if(!window.confirm(LANG.plugins.extension2.reallydel)){
             e.preventDefault();
             return false;
         }
@@ -63,7 +63,7 @@ jQuery(function(){
         jQuery.get(
             DOKU_BASE + 'lib/exe/ajax.php',
             {
-                call: 'plugin_extension',
+                call: 'plugin_extension2',
                 ext:  extension,
                 act:  act
             },
@@ -100,7 +100,7 @@ jQuery(function(){
         jQuery.get(
             DOKU_BASE + 'lib/exe/ajax.php',
             {
-                call: 'plugin_extension',
+                call: 'plugin_extension2',
                 ext: $link.data('extid'),
                 act: 'info'
             },
