@@ -1,7 +1,7 @@
 base   extension2
 author 
 email  
-date   2014-06-15
+date   2015-04-28
 name   Extension Manager (customized version)
 desc   Allows managing and installing plugins and templates
 url    https://www.dokuwiki.org/plugin:extension
