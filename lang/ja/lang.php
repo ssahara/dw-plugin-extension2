@@ -6,7 +6,7 @@
  * @author Hideaki SAWADA <chuno@live.jp>
  * @author PzF_X <jp_minecraft@yahoo.co.jp>
  */
-$lang['menu']                  = '拡張機能管理';
+$lang['menu']                  = '拡張機能管理（開発版）';
 $lang['tab_plugins']           = 'インストール済プラグイン';
 $lang['tab_templates']         = 'インストール済テンプレート';
 $lang['tab_search']            = '検索とインストール';
